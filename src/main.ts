@@ -60,7 +60,7 @@ window.isKeyDown = {};
             //スペースの場合
             if (event.key === ' ') {
                 // キーの押下状態を管理するオブジェクトに押下されたことを設定する
-                window.isKeyDown['key_space'] = true;
+                window.isKeyDown['key_Space'] = true;
                 console.log('スペースキー押されてるよ');
             }
         }, false);
@@ -72,7 +72,7 @@ window.isKeyDown = {};
             //スペースの場合
             if (event.key === ' ') {
                 // キーの押下状態を管理するオブジェクトに押下されたことを設定する
-                window.isKeyDown['key_space'] = false;
+                window.isKeyDown['key_Space'] = false;
             }
         }, false);
 

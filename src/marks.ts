@@ -33,6 +33,8 @@ export class Marks {
     cursor_pos: Coord;
 
     input: KeyStatus;
+    //次に置かれるべき記号
+    put_mark: string;
 
     constructor(util: Canvas2DUtility, grid_num: number, grid_size: number) {
         this.util = util;
@@ -48,9 +50,8 @@ export class Marks {
         this.input = new KeyStatus();
         //カーソルは最初左上に置く
         this.cursor_pos = new Coord(0, 0);
-        //test
-        this.mark[0][0] = "o";
-        this.mark[1][1] = "x";
+        //丸を先攻とする
+        this.put_mark = "o";
     }
 
     update() {
@@ -61,6 +62,15 @@ export class Marks {
         if (this.cursor_pos.x >= this.grid_num) this.cursor_pos.x = 0;
         if (this.cursor_pos.y < 0) this.cursor_pos.y = this.grid_num - 1;
         if (this.cursor_pos.y >= this.grid_num) this.cursor_pos.y = 0;
+        //エンターキーが押された場合
+        if (window.isKeyDown.key_Enter) {
+            //カーソル位置にマークが置かれていない場合
+            if (this.mark[this.cursor_pos.y][this.cursor_pos.x] == "n") {
+                //マークを設置する
+                this.mark[this.cursor_pos.y][this.cursor_pos.x] = this.put_mark;
+                this.switch_put_mark();
+            }
+        }
 
         this.draw();
     }
@@ -94,6 +104,14 @@ export class Marks {
             //バツ
             this.util.drawLine(center_x - this.mark_radius, center_y - this.mark_radius, center_x + this.mark_radius, center_y + this.mark_radius, "black");
             this.util.drawLine(center_x - this.mark_radius, center_y + this.mark_radius, center_x + this.mark_radius, center_y - this.mark_radius, "black");
+        }
+    }
+    //置くべきマークの種類を切り替える
+    switch_put_mark() {
+        if (this.put_mark == "o") {
+            this.put_mark = "x";
+        } else {
+            this.put_mark = "o";
         }
     }
 }
